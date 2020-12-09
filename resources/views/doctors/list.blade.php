@@ -11,6 +11,8 @@
 
 @section('content')
 <div class="container">
+<h2>Lekarze</h2>
+<a href="{{ URL::to('doctors/create') }}">Dodaj lekarza</a>
     <table class="table">
         <thead>
             <tr>

@@ -14,6 +14,8 @@ Route::get('/doctors/edit/{id}', [DoctorController::class, 'edit']);
 
 Route::get('/doctors/create', [DoctorController::class, 'create']);
 
+Route::post('/doctors', [DoctorController::class, 'store']);
+
 Route::get('/doctors', [DoctorController::class, 'index']);
 
 Route::get('/doctors/{id}', [DoctorController::class, 'show']);
@@ -23,6 +25,10 @@ Route::get('/doctors/specializations/{id}', [DoctorController::class, 'listBySpe
 Route::get('/visits', [VisitController::class, 'index']);
 
 Route::get('/specializations', [SpecializationController::class, 'index']);
+
+Route::get('/specializations/create', [SpecializationController::class, 'create']);
+
+Route::post('/specializations', [SpecializationController::class, 'store']);
 
 Route::get('/patients', [PatientController::class, 'index']);
 

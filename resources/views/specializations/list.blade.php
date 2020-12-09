@@ -11,6 +11,7 @@
 @section('content')
 <div class="container">
     <h2>Specializations</h2>
+    <a href="{{URL::to('specializations/create')}}">Dodaj nową specjalizację</a>
     <table class="table">
         <thead>
             <tr>

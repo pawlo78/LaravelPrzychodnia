@@ -27,4 +27,22 @@ class SpecializationController extends Controller
             "footerDate" => Date('Y')
         ]);
     }
+
+    public function create() 
+    {
+        return view('specializations.create', ["footerDate" => Date('Y')]);
+    }
+
+    public function store(Request $request) 
+    {
+        //stworzenie nowego obiektu
+        $specialization = new Specialization;
+        //przypis wartosci input do pola name tego obiektu
+        $specialization->name = $request->input('name');
+        //zapisanie danych w BD
+        $specialization->save();
+        //przekierownie na liste specjalizacji
+        return redirect()->action('App\Http\Controllers\SpecializationController@index');
+
+    }
 }

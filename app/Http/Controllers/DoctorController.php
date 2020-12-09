@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Specialization;
 use App\Repositories\UserRepository;
 
 class DoctorController extends Controller
@@ -62,22 +63,44 @@ class DoctorController extends Controller
         ]);
     }
 
+    public function store(Request $request) 
+    {
+        //stworzenie nowego obiektu
+        $doctor = new User;
+        $doctor->name = $request->input('name');
+        $doctor->email = $request->input('email');
+        $doctor->password = bcrypt($request->input('password'));
+        $doctor->phone = $request->input('phone');
+        $doctor->address = $request->input('address');
+        $doctor->pesel = $request->input('pesel');
+        $doctor->status = $request->input('status');
+        $doctor->type = 'doctor';
+        $doctor->save();
+        $doctor->specializations()->sync($request->input('specializations'));
+
+        return redirect()->action('App\Http\Controllers\DoctorController@index');
+
+    }
+
     //create doctor from form
     public function create()
-    {
-        //pojedynczy uzytkownik
-        $this->userRepo->create([
-            'name' => 'Damian Byrdy',
-            'email' => 'damian@byrdy.com',
-            'password' => bcrypt('password'),
-            'phone' => 77775285,
-            'address' => 'Warszawa, Wesoła 33',
-            'status' => 'Active',
-            'pesel' => '88092374874',
-            'type' => 'doktor'
-        ]);;
+    {        
+        $specializations = Specialization::all();
 
-        return redirect('doctors');
+        return view('doctors.create', ["specializations"=>$specializations, "footerDate" => Date('Y')]);
+        
+        //pojedynczy uzytkownik
+        // $this->userRepo->create([
+        //     'name' => 'Damian Byrdy',
+        //     'email' => 'damian@byrdy.com',
+        //     'password' => bcrypt('password'),
+        //     'phone' => 77775285,
+        //     'address' => 'Warszawa, Wesoła 33',
+        //     'status' => 'Active',
+        //     'pesel' => '88092374874',
+        //     'type' => 'doktor'
+        // ]);;
+        //return redirect('doctors');
     }
 
 
