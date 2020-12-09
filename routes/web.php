@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\SpecializationController;
 use App\Http\Controllers\VisitController;
+use App\Http\Controllers\PatientController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -22,6 +23,10 @@ Route::get('/doctors/specializations/{id}', [DoctorController::class, 'listBySpe
 Route::get('/visits', [VisitController::class, 'index']);
 
 Route::get('/specializations', [SpecializationController::class, 'index']);
+
+Route::get('/patients', [PatientController::class, 'index']);
+
+Route::get('/patients/{id}', [PatientController::class, 'show']);
 
 //niezapomniec dodać controllera w USE u gory pliku !!!!!
 

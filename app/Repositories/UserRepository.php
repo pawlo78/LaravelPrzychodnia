@@ -20,6 +20,11 @@ class UserRepository extends BaseRepository
         //return DB::table('users')->where('type', '=', 'doctor')->get();
     }
 
+    public function getAllPatients()
+    {
+        return $this->model->where('type', 'patient')->orderBy('name', 'desc')->get();        
+    }
+
     public function getDoctorsStatistics()
     {
         //tworzenie fasady
