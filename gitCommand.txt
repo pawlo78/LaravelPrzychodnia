@@ -1,0 +1,13 @@
+1. Dodanie plików na zdalne repo 
+//Dodawanie wszystkich plików do repo
+git add.
+//dodanie opisu przesylanej zmiany
+git commit -m “Dodanie funkcjonalności wyswietlania usera”
+//wyslanie na serwer github
+git push -u origin main
+
+2. Pobranie zmian na lokalny komp
+//pobranie na lokalne repo
+git fetch origin
+//scalenie z plikami
+git pull
