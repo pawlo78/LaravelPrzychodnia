@@ -11,6 +11,7 @@
 @section('content')
 <div class="container">
     <h2>Wizyty</h2>
+    <a href="{{URL::to('visits/create')}}">Dodaj nową wizytę</a>
     <table class="table">
         <thead>
             <tr>

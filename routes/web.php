@@ -34,6 +34,10 @@ Route::get('/patients', [PatientController::class, 'index']);
 
 Route::get('/patients/{id}', [PatientController::class, 'show']);
 
+Route::get('/visits/create', [VisitController::class, 'create']);
+
+Route::post('/visits', [VisitController::class, 'store']);
+
 //niezapomniec dodać controllera w USE u gory pliku !!!!!
 
 
