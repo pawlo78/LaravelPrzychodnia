@@ -22,7 +22,17 @@ Route::get('/doctors/{id}', [DoctorController::class, 'show']);
 
 Route::get('/doctors/specializations/{id}', [DoctorController::class, 'listBySpecialization']);
 
+Route::get('/doctors/delete/{id}', [DoctorController::class, 'delete']);
+
+
+
 Route::get('/visits', [VisitController::class, 'index']);
+
+Route::get('/visits/create', [VisitController::class, 'create']);
+
+Route::post('/visits', [VisitController::class, 'store']);
+
+
 
 Route::get('/specializations', [SpecializationController::class, 'index']);
 
@@ -30,13 +40,14 @@ Route::get('/specializations/create', [SpecializationController::class, 'create'
 
 Route::post('/specializations', [SpecializationController::class, 'store']);
 
+
+
 Route::get('/patients', [PatientController::class, 'index']);
 
 Route::get('/patients/{id}', [PatientController::class, 'show']);
 
-Route::get('/visits/create', [VisitController::class, 'create']);
 
-Route::post('/visits', [VisitController::class, 'store']);
+
 
 //niezapomniec dodać controllera w USE u gory pliku !!!!!
 

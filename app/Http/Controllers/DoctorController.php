@@ -110,4 +110,10 @@ class DoctorController extends Controller
         $doctor = $this->userRepo->update(['name' => "Andrzej Strzałka"], $id);
         return redirect('doctors');
     }
+    
+    public function delete($id)
+    {
+        $doctor = $this->userRepo->delete($id);
+        return redirect('doctors');
+    }
 }
