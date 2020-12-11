@@ -18,6 +18,7 @@ class AddForeignPatientsToVisits extends Migration
             $table->integer('patient_id')->unsigned()->change();
             //nazwa klucza lekarza -> odwołanie do pola id tabeli users
             $table->foreign('patient_id', 'visits_patient_id_foreign')->references('id')->on('users')->onDelete('cascade');
+            //->change(); mozliwe ze to dodać
         });
     }
 
