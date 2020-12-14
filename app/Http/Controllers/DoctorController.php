@@ -65,6 +65,20 @@ class DoctorController extends Controller
 
     public function store(Request $request) 
     {
+        
+        //walidowanie danych
+        //błedy sa dodawane do sesji i mozna wykorzystac je w formualrzu
+        //$erros->any(), $errors->all()
+        $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|email|unique:users,email', //sprawdzenie w tabeli i kolumnie
+            'password' => 'required|min:5',
+            'phone' => 'required',
+            'address' => 'required',
+            'pesel' => 'required'
+        ]);
+        
+        
         //stworzenie nowego obiektu
         $doctor = new User;
         $doctor->name = $request->input('name');
@@ -107,8 +121,27 @@ class DoctorController extends Controller
     //create doctor from form
     public function edit($id)
     {
-        $doctor = $this->userRepo->update(['name' => "Andrzej Strzałka"], $id);
-        return redirect('doctors');
+        $doctor = $this->userRepo->find($id);
+        $specializations = Specialization::all();
+        return view('doctors.edit', ["specializations"=>$specializations, "doctor"=>$doctor, "footerDate" => Date('Y')]);
+        
+    }
+
+    public function editStore(Request $request) 
+    {
+        //stworzenie nowego obiektu
+        $doctor = User::find($request->input('doctorId'));
+        $doctor->name = $request->input('name');
+        $doctor->email = $request->input('email');        
+        $doctor->phone = $request->input('phone');
+        $doctor->address = $request->input('address');
+        $doctor->pesel = $request->input('pesel');
+        $doctor->status = $request->input('status');        
+        $doctor->save();
+        $doctor->specializations()->sync($request->input('specializations'));
+
+        return redirect()->action('App\Http\Controllers\DoctorController@index');
+
     }
     
     public function delete($id)

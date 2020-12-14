@@ -8,6 +8,16 @@
 
 @section('content')
 <div class="container">
+
+@if($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach($errors->all() as $error)
+                <li>{{$error}}</li>                               
+            @endforeach
+        </ul>
+    </div>
+@endif  
     <h2>Dodawanie lekarza</h2>
     <form action="{{action([App\Http\Controllers\DoctorController::class, 'store'])}}" method="POST" role="form">
         <!-- token - zabezpiecznie przed generowaniem danych poza formularzem-->
@@ -32,10 +42,20 @@
             <label for="address">Adres</label>
             <input type="text" class="form-control" name="address" />
         </div>
+        @if($errors->first('address'))
+        <div class="alert alert-danger">
+            <li>{{$errors->first('address')}}</li>  
+        </div> 
+        @endif       
         <div class="form-group">
             <label for="pesel">Pesel</label>
             <input type="text" class="form-control" name="pesel" />
         </div>
+        @if($errors->first('pesel'))
+        <div class="alert alert-danger">
+            <li>{{$errors->first('address')}}</li>  
+        </div> 
+        @endif  
         <div class="form-group">
             <label for="specialization">Specjalizacja</label><BR>
             @foreach($specializations as $specialization)            

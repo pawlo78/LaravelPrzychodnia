@@ -40,7 +40,8 @@
                     </ul>
                 </td>
                 <td>{{$doctor->status}}</td>
-                <td><a href="{{ URL::to('doctors/delete/' . $doctor->id ) }}" onclick="return confirm('Czy napewno usunąć?')">Usuń</a></td>
+                <td><a href="{{ URL::to('doctors/delete/' . $doctor->id ) }}" onclick="return confirm('Czy napewno usunąć?')">Usuń</a>
+                <a href="{{ URL::to('doctors/edit/' . $doctor->id ) }}">Edytuj</a></td>
             </tr>
             @endforeach
         </tbody>

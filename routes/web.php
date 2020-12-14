@@ -12,6 +12,8 @@ Route::get('/', function () {
 
 Route::get('/doctors/edit/{id}', [DoctorController::class, 'edit']);
 
+Route::post('/doctors/edit/', [DoctorController::class, 'editStore']);
+
 Route::get('/doctors/create', [DoctorController::class, 'create']);
 
 Route::post('/doctors', [DoctorController::class, 'store']);
