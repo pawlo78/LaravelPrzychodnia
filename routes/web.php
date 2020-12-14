@@ -43,10 +43,11 @@ Route::get('/specializations/create', [SpecializationController::class, 'create'
 Route::post('/specializations', [SpecializationController::class, 'store']);
 
 
-
-Route::get('/patients', [PatientController::class, 'index']);
-
-Route::get('/patients/{id}', [PatientController::class, 'show']);
+//middleware zabezpieczneie autoryzacji z poziomu routingu
+//mozna pozbyc sie funkcjonalnosci z konstruktora
+Route::get('/patients', [PatientController::class, 'index'])->middleware('auth');
+Route::get('/patients/{id}', [PatientController::class, 'show'])->middleware('auth');
+Route::post('/patients', [PatientController::class, 'store']);
 
 
 
@@ -75,5 +76,9 @@ Route::prefix('admin')->group(function () {
 });
 */
 //Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

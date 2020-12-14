@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use App\Repositories\VisitRepository;
 use App\Repositories\UserRepository;
 use App\Models\Visit;
-
-
+use Illuminate\Support\Facades\Auth;
+    
 
 class VisitController extends Controller
 {
@@ -17,10 +17,15 @@ class VisitController extends Controller
     public function __construct(VisitRepository $visitRipo)
     {
         $this->visitRipo = $visitRipo;
+        $this->middleware('auth');
     }
 
     public function index()
     {
+        //autoryzacja logowania
+        if(Auth::user()->type != 'doctor' && Auth::user()->type != 'admin') {
+            return redirect()->route('login');
+        }    
         $visits = $this->visitRipo->getAll();
 
         return view('visits.list', [
@@ -32,7 +37,12 @@ class VisitController extends Controller
 
     //create doctor from form
     public function create(UserRepository $userRepo)
-    {        
+    {       
+        //autoryzacja logowania
+        if(Auth::user()->type != 'doctor' && Auth::user()->type != 'admin') {
+            return redirect()->route('login');
+        }    
+
         $doctors = $userRepo->getAllDoctors();
         $patients = $userRepo->getAllPatients();
 
@@ -44,6 +54,10 @@ class VisitController extends Controller
 
     public function store(Request $request) 
     {
+        //autoryzacja logowania
+        if(Auth::user()->type != 'doctor' && Auth::user()->type != 'admin') {
+            return redirect()->route('login');
+        }    
         //stworzenie nowego obiektu
         $visit = new Visit;
         //przypis wartosci input do pola name tego obiektu

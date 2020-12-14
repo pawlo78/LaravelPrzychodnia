@@ -1,0 +1,20 @@
+Autoryzacja - logowanie
+1)  php artisan ui:auth
+
+2)  modyfikacja pliku config/auth.php
+    linia 70 ścieżka do modelu
+
+3)  App/http/controllers/auth/RegisterController.php
+    sprawdzamy sciezki uzytkownika
+
+4) layout
+    wyswietlenie odnosników resources\views\layouts\app.blade.php
+    + zmieniamy szablon
+    szablon resources\views\auth\login.blade.php
+    resources\views\home.blade.php
+    szablon rejestracji resources\views\auth\register.blade.php
+
+5) Resetowanie hasła
+templatka do wpisywania nowego hasła resources\views\auth\passwords\reset.blade.php
+templatka wyslania linka resources\views\auth\passwords\email.blade.php
+

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Repositories\SpecializationRepository;
 use App\Models\Specialization;
+use Illuminate\Support\Facades\Auth;
 
 class SpecializationController extends Controller
 {
@@ -15,10 +16,16 @@ class SpecializationController extends Controller
     public function __construct(SpecializationRepository $specializationRipo)
     {
         $this->specializationRipo = $specializationRipo;
+        $this->middleware('auth');
     }
 
     public function index()
     {
+        //autoryzacja logowania
+        if(Auth::user()->type != 'doctor' && Auth::user()->type != 'admin') {
+            return redirect()->route('login');
+        }    
+
         $specializations = $this->specializationRipo->getAll();
 
         return view('specializations.list', [
@@ -30,11 +37,19 @@ class SpecializationController extends Controller
 
     public function create() 
     {
+        //autoryzacja logowania
+        if(Auth::user()->type != 'doctor' && Auth::user()->type != 'admin') {
+            return redirect()->route('login');
+        }    
         return view('specializations.create', ["footerDate" => Date('Y')]);
     }
 
     public function store(Request $request) 
     {
+        //autoryzacja logowania
+        if(Auth::user()->type != 'doctor' && Auth::user()->type != 'admin') {
+            return redirect()->route('login');
+        }    
         //stworzenie nowego obiektu
         $specialization = new Specialization;
         //przypis wartosci input do pola name tego obiektu

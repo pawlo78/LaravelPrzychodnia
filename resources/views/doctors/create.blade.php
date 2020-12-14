@@ -42,7 +42,7 @@
             <label for="address">Adres</label>
             <input type="text" class="form-control" name="address" />
         </div>
-        @if($errors->first('address'))
+        @if($errors->has('address'))
         <div class="alert alert-danger">
             <li>{{$errors->first('address')}}</li>  
         </div> 
@@ -51,7 +51,7 @@
             <label for="pesel">Pesel</label>
             <input type="text" class="form-control" name="pesel" />
         </div>
-        @if($errors->first('pesel'))
+        @if($errors->has('pesel'))
         <div class="alert alert-danger">
             <li>{{$errors->first('address')}}</li>  
         </div> 
