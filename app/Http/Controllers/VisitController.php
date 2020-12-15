@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Repositories\VisitRepository;
 use App\Repositories\UserRepository;
 use App\Models\Visit;
+use App\Models\User;
+use Mail;
 use Illuminate\Support\Facades\Auth;
     
 
@@ -66,6 +68,15 @@ class VisitController extends Controller
         $visit->date = $request->input('date');
         //zapisanie danych w BD
         $visit->save();
+
+        //wysylanie maila potwierdzajcego
+        $patient = USER::find($visit->patient_id);
+        Mail::send('emails.visit', ['visit' => $visit], function ($m) use ($visit, $patient) {
+            $m->to($patient->email, $patient->name)->subject('Nowa wizyta');
+        });
+
+
+
         //przekierownie na liste specjalizacji
         return redirect()->action('App\Http\Controllers\VisitController@index');
 
